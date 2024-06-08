@@ -22,6 +22,10 @@ body {
   background-color: #f9f9f9;
 }
 
+lt-split .splitc::-webkit-scrollbar {
+  display: none !important;
+}
+
 @media (max-width: 684px) {
   body {
     font-size: 1.53rem;

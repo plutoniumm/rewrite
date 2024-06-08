@@ -19,10 +19,7 @@
     }
   }
 
-  let g = $state({
-    w5000: ["the"],
-    raw: "",
-  });
+  let g = $state({ w5000: ["the"], raw: "" });
   let value = $state(dummy);
 
   onMount(check5000);
@@ -39,7 +36,7 @@
           <Statbar {value} {g} />
         {/if}
       </div>
-      <div style="height: calc(100% - 25px);margin-top:25px;">
+      <div style="height: calc(100% - 32px);margin-top:32px;">
         <Editor bind:raw={g.raw} bind:value />
       </div>
     </div>
@@ -52,7 +49,7 @@
 
 <style lang="scss">
   #statbar {
-    height: 24px;
+    height: 31px;
     border-bottom: 1px solid #222;
     left: 0;
     top: 0;

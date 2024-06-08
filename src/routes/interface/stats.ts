@@ -52,8 +52,6 @@ export function Stats (string: string, opts: Options) {
       const words = textNodes[i].split(' ');
       if (words.length > 30) longs.push(textNodes[i]);
     };
-
-    console.log('longs', longs);
   }
 
   const filtered = words
