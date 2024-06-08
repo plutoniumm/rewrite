@@ -3,15 +3,11 @@
   import { notes, toasts } from "$lib";
   import { onMount } from "svelte";
 
-  import Toast from "./toaster.svelte";
-  import Note from "./note.svelte";
+  import Toast from "./interface/toaster.svelte";
+  import Note from "./interface/note.svelte";
+  import Statbar from "./interface/stats.svelte";
 
   import { dummy } from "./editor";
-  import { Stats } from "./stats";
-
-  let g = $state({
-    w5000: ["the"],
-  });
 
   function check5000() {
     if (g.w5000.length < 10) {
@@ -23,40 +19,28 @@
     }
   }
 
+  let g = $state({
+    w5000: ["the"],
+    raw: "",
+  });
   let value = $state(dummy);
 
-  onMount(() => {
-    check5000();
-  });
+  onMount(check5000);
 </script>
 
 <lt-split ratio="1:3">
   <div slot="a">
-    {#each $notes as note}
-      <Note {note} />
-    {/each}
+    {#each $notes as note}<Note {note} />{/each}
   </div>
   <div slot="b">
-    <div class="f-col">
-      <div class="f j-ar" style="height: 24px;border-bottom: 1px solid #222;">
+    <div class="f-col p-rel">
+      <div id="statbar" class="f j-ar p-abs w-100">
         {#if value}
-          {@const stats = Stats(value, g)}
-          <div class="f j-ar">
-            <span class="fw7">Chars:</span>
-            {stats.count} &emsp;
-          </div>
-          <div class="f j-ar">
-            <span class="fw7">Words:</span>
-            {stats.words}
-          </div>
-          <div>
-            <span>Outliers: </span>
-            {stats.outliers?.join(", ") || "none"}
-          </div>
+          <Statbar {value} {g} />
         {/if}
       </div>
-      <div style="height: calc(100% - 25px);">
-        <Editor bind:value />
+      <div style="height: calc(100% - 25px);margin-top:25px;">
+        <Editor bind:raw={g.raw} bind:value />
       </div>
     </div>
   </div>
@@ -67,6 +51,12 @@
 {/if}
 
 <style lang="scss">
+  #statbar {
+    height: 24px;
+    border-bottom: 1px solid #222;
+    left: 0;
+    top: 0;
+  }
   lt-split {
     height: 100vh;
     [slot] {

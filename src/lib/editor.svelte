@@ -9,7 +9,7 @@
   import { exampleSetup } from "./basic";
   import { onMount } from "svelte";
 
-  let { value = $bindable() } = $props();
+  let { value = $bindable(), raw = $bindable() } = $props();
 
   let editor: N<HTMLElement> = null;
 
@@ -26,6 +26,7 @@
         state,
         dispatchTransaction(tr) {
           view.updateState(view.state.apply(tr));
+          raw = view.state.doc;
           value = defaultMarkdownSerializer.serialize(view.state.doc);
         },
       });
