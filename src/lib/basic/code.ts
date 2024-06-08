@@ -11,12 +11,11 @@ const validLangs = ['typescript', 'pyth', 'javascript', 'json', 'html', 'css', '
 const langExts = ['ts', 'js', 'json', 'html', 'css', 'sh', 'yaml', 'md', 'xml', 'ml', 'rs', 'go', 'c', 'cpp', 'java', 'kt', 'swift', 'php', 'rb', 'f90', 'pl', 'lua', 'r', 'sql', 'scala', 'clj', 'lisp', 'hs', 'erl', 'ex'];
 
 const lazyParser: Parser = (options): any => {
-  console.log('lazyParser', options);
-  const lang = options.content.split('\n')[0].toLowerCase().trim();
+  const lang = options.content.split('\n')[0].split(' ').filter(w => /^[a-zA-Z]+$/.test(w))[0];
   if (validLangs.includes(lang) || langExts.includes(lang)) {
     options.language = lang;
   } else {
-    options.language = 'typescript';
+    options.language = 'plaintext';
   }
 
 
