@@ -1,33 +1,60 @@
 <script lang="ts">
   import Editor from "$lib/editor.svelte";
-  import Toast from "./toaster.svelte";
   import { notes, toasts } from "$lib";
-  import { dummy } from "./editor";
+  import { onMount } from "svelte";
 
-  let value = dummy;
+  import Toast from "./toaster.svelte";
+  import Note from "./note.svelte";
+
+  import { dummy } from "./editor";
+  import { Stats } from "./stats";
+
+  let g = $state({
+    w5000: ["the"],
+  });
+
+  function check5000() {
+    if (g.w5000.length < 10) {
+      fetch("/5000.txt")
+        .then((res) => res.text())
+        .then((text) => {
+          g.w5000 = text.split("\n").map((w) => w.trim());
+        });
+    }
+  }
+
+  let value = $state(dummy);
+
+  onMount(() => {
+    check5000();
+  });
 </script>
 
 <lt-split ratio="1:3">
   <div slot="a">
     {#each $notes as note}
-      <article>
-        <div class="f j-bw">
-          <div class="p10 fw6">
-            {note.title}
-          </div>
-          <div style="color:#222;">
-            {note.date}
-          </div>
-        </div>
-        <div class="p10">
-          {note.preview}
-        </div>
-      </article>
+      <Note {note} />
     {/each}
   </div>
   <div slot="b">
     <div class="f-col">
-      <div style="height: 24px;border-bottom: 1px solid #222;">stats</div>
+      <div class="f j-ar" style="height: 24px;border-bottom: 1px solid #222;">
+        {#if value}
+          {@const stats = Stats(value, g)}
+          <div class="f j-ar">
+            <span class="fw7">Chars:</span>
+            {stats.count} &emsp;
+          </div>
+          <div class="f j-ar">
+            <span class="fw7">Words:</span>
+            {stats.words}
+          </div>
+          <div>
+            <span>Outliers: </span>
+            {stats.outliers?.join(", ") || "none"}
+          </div>
+        {/if}
+      </div>
       <div style="height: calc(100% - 25px);">
         <Editor bind:value />
       </div>

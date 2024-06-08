@@ -9,7 +9,7 @@
   import { exampleSetup } from "./basic";
   import { onMount } from "svelte";
 
-  export let value: U<string>;
+  let { value = $bindable() } = $props();
 
   let editor: N<HTMLElement> = null;
 
@@ -22,7 +22,15 @@
         plugins: exampleSetup({ schema }),
       });
 
-      this.view = new EditorView(target, { state });
+      let view = new EditorView(target, {
+        state,
+        dispatchTransaction(tr) {
+          view.updateState(view.state.apply(tr));
+          value = defaultMarkdownSerializer.serialize(view.state.doc);
+        },
+      });
+
+      this.view = view;
     }
 
     get content() {
