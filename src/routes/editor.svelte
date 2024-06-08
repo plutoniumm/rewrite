@@ -7,7 +7,7 @@
     defaultMarkdownParser,
     defaultMarkdownSerializer,
   } from "prosemirror-markdown";
-  import { exampleSetup } from "prosemirror-example-setup";
+  import { exampleSetup } from "$lib/basic";
   import { onMount } from "svelte";
 
   let editor: N<HTMLElement> = null;
@@ -38,4 +38,9 @@
   });
 </script>
 
-<div bind:this={editor} class="h-100" id="editor"></div>
+<div bind:this={editor} class="h-100 b0 p0" id="editor"></div>
+
+<style>
+  #editor {
+  }
+</style>

@@ -8,15 +8,39 @@ dependencies:
   prosemirror:
     specifier: ^0.11.1
     version: 0.11.1
-  prosemirror-example-setup:
+  prosemirror-commands:
+    specifier: ^1.5.2
+    version: 1.5.2
+  prosemirror-dropcursor:
+    specifier: ^1.8.1
+    version: 1.8.1
+  prosemirror-gapcursor:
+    specifier: ^1.3.2
+    version: 1.3.2
+  prosemirror-history:
+    specifier: ^1.4.0
+    version: 1.4.0
+  prosemirror-inputrules:
+    specifier: ^1.4.0
+    version: 1.4.0
+  prosemirror-keymap:
     specifier: ^1.2.2
     version: 1.2.2
   prosemirror-markdown:
     specifier: ^1.13.0
     version: 1.13.0
+  prosemirror-menu:
+    specifier: ^1.2.4
+    version: 1.2.4
+  prosemirror-model:
+    specifier: ^1.21.1
+    version: 1.21.1
   prosemirror-schema-basic:
     specifier: ^1.2.2
     version: 1.2.2
+  prosemirror-schema-list:
+    specifier: ^1.3.0
+    version: 1.3.0
   prosemirror-state:
     specifier: ^1.4.3
     version: 1.4.3
@@ -810,20 +834,6 @@ packages:
       prosemirror-state: 1.4.3
       prosemirror-transform: 1.9.0
       prosemirror-view: 1.33.7
-    dev: false
-
-  /prosemirror-example-setup@1.2.2:
-    resolution: {integrity: sha512-pHJc656IgYm249RNp0eQaWNmnyWGk6OrzysWfYI4+NwE14HQ7YNYOlRBLErUS6uCAHIYJLNXf0/XCmf1OCtNbQ==}
-    dependencies:
-      prosemirror-commands: 1.5.2
-      prosemirror-dropcursor: 1.8.1
-      prosemirror-gapcursor: 1.3.2
-      prosemirror-history: 1.4.0
-      prosemirror-inputrules: 1.4.0
-      prosemirror-keymap: 1.2.2
-      prosemirror-menu: 1.2.4
-      prosemirror-schema-list: 1.3.0
-      prosemirror-state: 1.4.3
     dev: false
 
   /prosemirror-gapcursor@1.3.2:
