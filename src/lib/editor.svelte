@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { dummy } from "$lib/editor";
   import { EditorState } from "prosemirror-state";
   import { EditorView } from "prosemirror-view";
   import {
@@ -7,8 +6,10 @@
     defaultMarkdownParser,
     defaultMarkdownSerializer,
   } from "prosemirror-markdown";
-  import { exampleSetup } from "$lib/basic";
+  import { exampleSetup } from "./basic";
   import { onMount } from "svelte";
+
+  export let value: U<string>;
 
   let editor: N<HTMLElement> = null;
 
@@ -16,12 +17,12 @@
     view: EditorView;
 
     constructor(target: HTMLElement, content: string) {
-      this.view = new EditorView(target, {
-        state: EditorState.create({
-          doc: defaultMarkdownParser.parse(content),
-          plugins: exampleSetup({ schema }),
-        }),
+      let state = EditorState.create({
+        doc: defaultMarkdownParser.parse(content),
+        plugins: exampleSetup({ schema }),
       });
+
+      this.view = new EditorView(target, { state });
     }
 
     get content() {
@@ -33,7 +34,7 @@
 
   onMount(() => {
     editor = editor as HTMLElement;
-    let view = new ProseMirrorView(editor, dummy);
+    let view = new ProseMirrorView(editor, value);
     view.focus();
   });
 </script>

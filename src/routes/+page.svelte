@@ -1,7 +1,10 @@
 <script lang="ts">
-  import Editor from "./editor.svelte";
+  import Editor from "$lib/editor.svelte";
   import Toast from "./toaster.svelte";
   import { notes, toasts } from "$lib";
+  import { dummy } from "./editor";
+
+  let value = dummy;
 </script>
 
 <lt-split ratio="1:3">
@@ -23,7 +26,12 @@
     {/each}
   </div>
   <div slot="b">
-    <Editor />
+    <div class="f-col">
+      <div style="height: 24px;border-bottom: 1px solid #222;">stats</div>
+      <div style="height: calc(100% - 25px);">
+        <Editor bind:value />
+      </div>
+    </div>
   </div>
 </lt-split>
 
