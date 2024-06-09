@@ -1,4 +1,7 @@
 <script lang="ts">
+  import "katex/dist/katex.min.css";
+  import "@benrbray/prosemirror-math/dist/prosemirror-math.css";
+
   import Editor from "$lib/editor.svelte";
   import { notes, toasts } from "$lib";
   import { onMount } from "svelte";
