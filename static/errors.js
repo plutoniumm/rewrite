@@ -1,7 +1,14 @@
 const ignore_lists = [
   {
+    name: "parseError",
+    desc: "Markdown renderer bugs out on math display",
     includes: [ "not supported by Markdown renderer", "math_display" ]
-  }
+  },
+  {
+    name: "parseError",
+    desc: "Markdown renderer bugs out on math inline",
+    includes: [ "not supported by Markdown renderer", "math_inline" ]
+  },
 ]
 
 window.onerror = function ( msg, url, line, col, error ) {

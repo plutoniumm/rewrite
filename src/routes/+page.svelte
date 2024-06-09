@@ -28,7 +28,7 @@
   onMount(check5000);
 </script>
 
-<lt-split ratio="1:3">
+<lt-split ratio="1:3.5">
   <div slot="a">
     {#each $notes as note}<Note {note} />{/each}
   </div>

@@ -26,8 +26,8 @@ export function buildKeymap (schema: Schema) {
   if (type = schema.marks.em) bind("Mod-i", toggleMark(type))
 
   if (type = schema.marks.code) bind("Mod-h", toggleMark(type))
-  //   if (type = schema.marks.mark) bind("Mod-m", toggleMark(type))
-  // if (type = schema.marks.underline) bind("Mod-u", toggleMark(type))
+  if (type = schema.marks.mark) bind("Mod-m", toggleMark(type))
+  if (type = schema.marks.underline) bind("Mod-u", toggleMark(type))
 
   if (type = schema.nodes.hard_break) {
     let br = type, cmd = chainCommands(exitCode, (state, dispatch) => {

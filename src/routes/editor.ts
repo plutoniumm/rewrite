@@ -5,9 +5,7 @@ export const dummy = `
 - List _shade_ 1
 - List item 3 $y = mx + b$
 
-$$
-|\\psi \\rangle = \\frac{1}{\\sqrt2} (|00\\rangle + |11\\rangle)
-$$
+$$ \n |\\psi \\rangle = \\frac{1}{\\sqrt2} (|00\\rangle + |11\\rangle) \n$$
 
 ## Subheading
 [Link](https://example.com)

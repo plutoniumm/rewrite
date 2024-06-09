@@ -16,6 +16,7 @@
 	"type": "module",
 	"dependencies": {
 		"@benrbray/prosemirror-math": "^1.0.0",
+		"@libsql/client": "^0.6.2",
 		"highlight.js": "^11.9.0",
 		"js-yaml": "^4.1.0",
 		"katex": "^0.16.10",

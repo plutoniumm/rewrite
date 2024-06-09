@@ -27,17 +27,29 @@ let extended = new Schema({
     .addToEnd("math_display", {
       group: "block",
       content: "text*",
-      atom: true,
       code: true,
       toDOM: () => ["math-display", { class: "math-node" }, 0],
       parseDOM: [{ tag: "math-display" }, ...defaultBlockMathParseRules],
     }),
-  marks: schema.spec.marks.addToEnd("math_select", {
-    toDOM () {
-      return ["math-select", 0];
-    },
-    parseDOM: [{ tag: "math-select" }],
-  }),
+  marks: schema.spec.marks
+    .addToEnd("math_select", {
+      toDOM () {
+        return ["math-select", 0];
+      },
+      parseDOM: [{ tag: "math-select" }],
+    })
+    .addToEnd("underline", {
+      parseDOM: [{ tag: "u" }],
+      toDOM () {
+        return ["u", 0];
+      },
+    })
+    .addToEnd("mark", {
+      parseDOM: [{ tag: "mark" }],
+      toDOM () {
+        return ["mark", 0];
+      },
+    }),
 });
 
 export const parser = new MarkdownParser(

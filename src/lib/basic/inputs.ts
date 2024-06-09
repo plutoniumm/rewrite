@@ -1,7 +1,7 @@
 import {
   inputRules, wrappingInputRule as wrap,
   textblockTypeInputRule as block,
-  smartQuotes, emDash, ellipsis
+  smartQuotes, emDash, ellipsis,
 } from "prosemirror-inputrules";
 import { NodeType, Schema } from "prosemirror-model";
 import {
@@ -26,7 +26,7 @@ export function buildInputRules (s: Schema) {
   if (t = s.nodes.bullet_list) rules.push(bulletRule(t));
   if (t = s.nodes.code_block) rules.push(codeRule(t));
   if (t = s.nodes.heading) rules.push(headingRule(t));
-  if (t = s.nodes.math_inline) rules.push($Rule(/\$.+\$/, t));
+  if (t = s.nodes.math_inline) rules.push($Rule(/\$(.+)\$/, t));
   if (t = s.nodes.math_display) rules.push($$Rule(/\$\$\s$/, t));
 
   return inputRules({ rules });
