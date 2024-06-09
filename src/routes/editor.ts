@@ -6,7 +6,7 @@ export const dummy = `
 - List item 3 $y = mx + b$
 
 $$
-|\psi\rangle = \frac{1}{\sqrt{2}} (|0\rangle + |1\rangle)
+|\\psi \\rangle = \\frac{1}{\\sqrt2} (|00\\rangle + |11\\rangle)
 $$
 
 ## Subheading

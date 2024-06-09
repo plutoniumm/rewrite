@@ -19,9 +19,6 @@ const codeRule = (type: NodeType) => block(/^```$/, type);
 const headingRule = (type: NodeType) =>
   block(new RegExp("^(#{1,6})\\s$"), type, match => ({ level: match[1].length }));
 
-const inlineMathRule = (type: NodeType) => $Rule(/\$(.+)\$/, type);
-const blockMathRule = (type: NodeType) => $$Rule(/\$\$\s+$/, type);
-
 export function buildInputRules (s: Schema) {
   let rules = smartQuotes.concat(ellipsis, emDash), t;
   if (t = s.nodes.blockquote) rules.push(quoteRule(t));
@@ -29,8 +26,8 @@ export function buildInputRules (s: Schema) {
   if (t = s.nodes.bullet_list) rules.push(bulletRule(t));
   if (t = s.nodes.code_block) rules.push(codeRule(t));
   if (t = s.nodes.heading) rules.push(headingRule(t));
-  if (t = s.nodes.inline_math) rules.push(inlineMathRule(t));
-  if (t = s.nodes.block_math) rules.push(blockMathRule(t));
+  if (t = s.nodes.math_inline) rules.push($Rule(/\$.+\$/, t));
+  if (t = s.nodes.math_display) rules.push($$Rule(/\$\$\s$/, t));
 
   return inputRules({ rules });
 };
