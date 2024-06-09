@@ -6,45 +6,39 @@
     defaultMarkdownParser,
     defaultMarkdownSerializer,
   } from "prosemirror-markdown";
-  import { exampleSetup } from "./basic";
+  import { keymap } from "prosemirror-keymap";
+  import { history } from "prosemirror-history";
+  import { baseKeymap } from "prosemirror-commands";
+
+  import { buildKeymap } from "$lib/basic/keymap";
+  import { buildInputRules } from "$lib/basic/inputs";
+  import { shikiLazyPlugin } from "$lib/basic/code";
   import { onMount } from "svelte";
 
   let { value = $bindable(), raw = $bindable() } = $props();
 
   let editor: N<HTMLElement> = null;
 
-  class ProseMirrorView {
-    view: EditorView;
-
-    constructor(target: HTMLElement, content: string) {
-      let state = EditorState.create({
-        doc: defaultMarkdownParser.parse(content),
-        plugins: exampleSetup({ schema }),
-      });
-
-      let view = new EditorView(target, {
-        state,
-        dispatchTransaction(tr) {
-          view.updateState(view.state.apply(tr));
-          raw = view.state.doc;
-          value = defaultMarkdownSerializer.serialize(view.state.doc);
-        },
-      });
-
-      this.view = view;
-    }
-
-    get content() {
-      return defaultMarkdownSerializer.serialize(this.view.state.doc);
-    }
-    focus = () => this.view.focus();
-    destroy = () => this.view.destroy();
-  }
-
   onMount(() => {
-    editor = editor as HTMLElement;
-    let view = new ProseMirrorView(editor, value);
-    view.focus();
+    let state = EditorState.create({
+      doc: defaultMarkdownParser.parse(value),
+      plugins: [
+        buildInputRules(schema),
+        keymap(buildKeymap(schema)),
+        keymap(baseKeymap),
+        shikiLazyPlugin,
+        history(),
+      ],
+    });
+
+    let view = new EditorView(editor, {
+      state,
+      dispatchTransaction(tr) {
+        view.updateState(view.state.apply(tr));
+        raw = view.state.doc;
+        value = defaultMarkdownSerializer.serialize(view.state.doc);
+      },
+    });
   });
 </script>
 
