@@ -21,14 +21,6 @@
     </select>
   {/if}
 </div>
-<div>
-  <span class="fw7">Hard Words:&nbsp;</span>{stats.unique.length}
-  <select class="p-rel">
-    {#each stats.unique as word}
-      <option>{word}</option>
-    {/each}
-  </select>
-</div>
 
 <style lang="scss">
   select {

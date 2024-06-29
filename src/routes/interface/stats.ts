@@ -1,20 +1,3 @@
-interface Freq {
-  [key: string]: number;
-};
-function frequency (array: string[]) {
-  const freq: Freq = {};
-  for (let i = 0; i < array.length; i++) {
-    const word = array[i];
-    if (freq[word]) {
-      freq[word]++;
-    } else {
-      freq[word] = 1;
-    };
-  };
-
-  return freq;
-};
-
 interface Options {
   w5000: string[];
   raw: any;
@@ -54,20 +37,9 @@ export function Stats (string: string, opts: Options) {
     };
   }
 
-  const filtered = words
-    .filter((w) =>
-      w.length > 3
-      && !opts.w5000.includes(w.toLowerCase())
-    );
-  const freq = frequency(filtered);
-  const unique = Object.keys(freq)
-    .filter((k) => freq[k] === 1)
-    .sort((a, b) => b.length - a.length);
-
   return {
     count: string.length,
     words: words.length,
     longs: longs,
-    unique,
   };
 }

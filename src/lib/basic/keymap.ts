@@ -1,17 +1,18 @@
 import {
-  chainCommands, toggleMark, exitCode, selectParentNode
+  chainCommands, toggleMark, exitCode, selectParentNode,
+  selectNodeBackward, joinBackward, deleteSelection
 } from "prosemirror-commands"
-import { splitListItem } from "prosemirror-schema-list"
-import { undo, redo } from "prosemirror-history"
-import { undoInputRule } from "prosemirror-inputrules"
-import type { Command } from "prosemirror-state"
-import { Schema } from "prosemirror-model"
+import { mathBackspaceCmd, insertMathCmd } from "@benrbray/prosemirror-math";
+import { splitListItem } from "prosemirror-schema-list";
+import { undo, redo } from "prosemirror-history";
+import type { Command } from "prosemirror-state";
+import { Schema } from "prosemirror-model";
 
-const mac = typeof navigator != "undefined" ? /Mac|iP(hone|[oa]d)/.test(navigator.platform) : false
+const mac = typeof navigator != "undefined" ? /Mac|iP(hone|[oa]d)/.test(navigator.platform) : false;
 
 export function buildKeymap (schema: Schema) {
-  let mapKeys: { [key: string]: string } = {}
-  let keys: { [key: string]: Command } = {}, type
+  let mapKeys: { [key: string]: string } = {};
+  let keys: { [key: string]: Command } = {}, type;
 
   function bind (key: string, cmd: Command) {
     if (mapKeys[key]) key = mapKeys[key]
@@ -20,7 +21,11 @@ export function buildKeymap (schema: Schema) {
 
   bind("Mod-z", undo)
   bind("Shift-Mod-z", redo)
-  bind("Backspace", undoInputRule)
+  bind("Backspace", chainCommands(deleteSelection, mathBackspaceCmd, joinBackward, selectNodeBackward))
+
+  bind("Mod-Space", insertMathCmd(schema.nodes.math_inline))
+  bind("Mod-Enter", insertMathCmd(schema.nodes.math_display))
+
   bind("Escape", selectParentNode)
   if (type = schema.marks.strong) bind("Mod-b", toggleMark(type))
   if (type = schema.marks.em) bind("Mod-i", toggleMark(type))
